@@ -1,0 +1,73 @@
+*{box-sizing:border-box}
+:root{
+  --bg:#0f1115; --card:#171923; --muted:#9aa4b2; --text:#e6e6e6; --accent:#6ea8fe;
+  --border:#242736; --bubble:#1f2330; --me:#243042;
+}
+html,body{height:100%}
+body{
+  margin:0; font-family:ui-sans-serif, system-ui, -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  color:var(--text); background:linear-gradient(160deg,#0e1017,#10121a 40%,#0b0d13);
+}
+.topbar{
+  display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--border); background:rgba(15,17,21,.6); backdrop-filter:saturate(150%) blur(10px); position:sticky; top:0; z-index:10;
+}
+.topbar h1{font-size:18px; margin:0}
+.model-controls{display:flex; gap:8px; flex-wrap:wrap}
+.model-controls input, .model-controls select, .model-controls button{
+  background:var(--card); color:var(--text); border:1px solid var(--border); padding:8px 10px; border-radius:8px; font-size:14px;
+}
+.container{display:grid; grid-template-columns:320px 1fr; gap:12px; padding:12px; height:calc(100vh - 56px)}
+.sidebar{overflow:auto; padding-right:6px}
+.section{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px; margin-bottom:12px}
+.section h2{font-size:16px; margin:0 0 8px}
+#charList, #actionList{display:flex; flex-direction:column; gap:8px}
+.char-item, .action-item{
+  display:flex; align-items:center; justify-content:space-between; padding:10px; border:1px solid var(--border); background:var(--bubble); border-radius:10px; cursor:pointer;
+}
+.char-item .name{font-weight:600}
+.char-item .desc{font-size:12px; color:var(--muted)}
+.section button{width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--bubble); color:var(--text); cursor:pointer}
+.section button:hover{outline:1px solid var(--accent)}
+
+.memory-box textarea{
+  width:100%; min-height:130px; background:var(--bubble); border:1px solid var(--border); color:var(--text); border-radius:10px; padding:10px; resize:vertical;
+}
+.affection{display:flex; align-items:center; gap:12px; margin:8px 0}
+.affection input[type=range]{width:100%}
+.memory-buttons{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+
+.chat-area{display:flex; flex-direction:column; gap:10px; height:100%}
+.chat-header{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px}
+#charTitle{margin:0} #charDesc{margin:4px 0 0; color:var(--muted)}
+.openers button{border:1px solid var(--border); padding:8px 10px; background:var(--bubble); color:var(--text); border-radius:10px; cursor:pointer}
+
+.chat{
+  flex:1; overflow:auto; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; display:flex; flex-direction:column; gap:10px;
+}
+.msg{display:flex; gap:10px}
+.msg .bubble{
+  max-width:85%; padding:12px 14px; border-radius:14px; border:1px solid var(--border); background:var(--bubble); white-space:pre-wrap; line-height:1.6;
+}
+.msg.me{justify-content:flex-end}
+.msg.me .bubble{background:var(--me)}
+.msg .meta{font-size:11px; color:var(--muted); margin-top:2px}
+
+.composer{display:flex; gap:10px; align-items:flex-end}
+.composer textarea{
+  flex:1; background:var(--card); border:1px solid var(--border); color:var(--text); border-radius:12px; padding:10px; min-height:52px; max-height:240px; resize:vertical;
+}
+.composer-actions{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+.composer-actions button{padding:10px 12px; border-radius:10px; border:1px solid var(--border); background:var(--bubble); color:var(--text)}
+.tiny{font-size:12px; color:var(--muted)}
+
+dialog{border:none; border-radius:12px; padding:0; background:var(--card); color:var(--text); width:min(720px, 92vw)}
+.dialog-form{padding:16px; display:flex; flex-direction:column; gap:8px}
+.dialog-form input, .dialog-form textarea{background:var(--bubble); color:var(--text); border:1px solid var(--border); border-radius:10px; padding:10px}
+.dialog-actions{display:flex; justify-content:space-between; margin-top:8px}
+.dialog-actions button{padding:10px; border-radius:10px; border:1px solid var(--border); background:var(--bubble); color:var(--text)}
+
+@media (max-width: 980px){
+  .container{grid-template-columns:1fr}
+  .sidebar{order:2}
+  .chat-area{order:1}
+}
