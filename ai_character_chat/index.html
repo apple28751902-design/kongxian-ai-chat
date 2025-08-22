@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>角色AI聊天（繁中小說體）</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>角色AI聊天</h1>
+    <div class="model-controls">
+      <select id="provider">
+        <option value="openai">OpenAI</option>
+        <option value="openrouter">OpenRouter</option>
+      </select>
+      <input id="apiKey" type="password" placeholder="輸入 API Key（僅儲存在本機）" />
+      <input id="apiBase" type="text" placeholder="自訂 API Base（可留空）" />
+      <input id="model" type="text" placeholder="模型名稱（例如：gpt-4o-mini, llama-3.1-70b, o3-mini）" />
+      <button id="saveSettings">儲存</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="sidebar">
+      <div class="section">
+        <h2>角色列表</h2>
+        <div id="charList"></div>
+        <button id="newCharBtn">＋ 新角色</button>
+      </div>
+
+      <div class="section">
+        <h2>自定義按鍵</h2>
+        <div id="actionList"></div>
+        <button id="newActionBtn">＋ 新增按鍵</button>
+      </div>
+
+      <div class="section">
+        <h2>記憶與好感</h2>
+        <div class="memory-box">
+          <textarea id="memory" placeholder="這裡顯示並可編輯角色對玩家的長期記憶"></textarea>
+        </div>
+        <div class="affection">
+          <label>好感度：<span id="affectionValue">50</span></label>
+          <input type="range" min="0" max="100" value="50" id="affectionRange"/>
+        </div>
+        <div class="memory-buttons">
+          <button id="saveMemory">儲存記憶</button>
+          <button id="summarizeMemory">由AI整理記憶</button>
+          <button id="exportChat">匯出對話</button>
+          <button id="clearChat">清空對話</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="chat-area">
+      <div class="chat-header">
+        <div>
+          <h2 id="charTitle">未選擇角色</h2>
+          <p id="charDesc"></p>
+        </div>
+        <div class="openers">
+          <button id="useOpener">使用開場白</button>
+        </div>
+      </div>
+
+      <div id="chat" class="chat"></div>
+
+      <div class="composer">
+        <textarea id="userInput" rows="3" placeholder="輸入訊息…（支援Shift+Enter換行）"></textarea>
+        <div class="composer-actions">
+          <button id="sendBtn">傳送（⌘/Ctrl + Enter）</button>
+          <label class="tiny">
+            <input type="checkbox" id="streaming" checked />串流輸出
+          </label>
+          <label class="tiny">
+            <input type="checkbox" id="force500" checked />至少500字
+          </label>
+          <select id="tone">
+            <option value="甜蜜">甜蜜</option>
+            <option value="日常">日常</option>
+            <option value="傲嬌">傲嬌</option>
+            <option value="病嬌">病嬌</option>
+            <option value="成熟">成熟</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Dialogs -->
+  <dialog id="charEditor">
+    <form method="dialog" class="dialog-form">
+      <h3>編輯角色</h3>
+      <input id="charName" placeholder="角色名稱（必填）" />
+      <textarea id="charPersona" rows="5" placeholder="角色設定（口癖、背景、性格、目標）"></textarea>
+      <textarea id="charOpener" rows="4" placeholder="開場白（會自動使用繁中小說體，斜體描述與「」對話）"></textarea>
+      <textarea id="charRules" rows="3" placeholder="角色規則（禁忌、講話方式、稱呼玩家方式）"></textarea>
+      <div class="dialog-actions">
+        <button id="deleteChar" type="button">刪除</button>
+        <button id="saveChar" type="submit">儲存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="actionEditor">
+    <form method="dialog" class="dialog-form">
+      <h3>新增／編輯按鍵</h3>
+      <input id="actionLabel" placeholder="按鍵名稱（例如：撒嬌、摸頭、吐槽）" />
+      <textarea id="actionPrompt" rows="5" placeholder="按鍵提示詞（會附加到系統提示）"></textarea>
+      <div class="dialog-actions">
+        <button id="deleteAction" type="button">刪除</button>
+        <button id="saveAction" type="submit">儲存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
